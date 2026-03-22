@@ -1,0 +1,23 @@
+version: "3.9"
+services:
+  api:
+    build:
+      context: ./my-api
+    ports:
+      - "3000:3000"
+
+  tests:
+    image: python:3.13
+    depends_on:
+      - api
+    working_dir: /app
+    environment:
+      - API_BASE=http://api:3000   # run tests against docker-compose network API service
+    volumes:
+      - .:/app:rw
+    command: /bin/sh run-tests.sh
+
+# NOTE: The server fixture in tests/api_test.py is commented out under option A,
+# because the api service is started by docker-compose (in contrast to local Windows bat start).
+# Added junitxml output so test reports are persisted to ./results.xml (in mounted repo).
+# Now using Allure for HTML reports: generates allure-results then allure-report folder.
