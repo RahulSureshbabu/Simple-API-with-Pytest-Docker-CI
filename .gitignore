@@ -2,3 +2,8 @@ node_modules/
 __pycache__/
 *.py[cod]
 *.log
+allure-results/
+allure-report/
+allure-2.24.0/
+allure.zip
+results.xml

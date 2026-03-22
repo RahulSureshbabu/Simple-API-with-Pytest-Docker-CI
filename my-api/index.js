@@ -47,12 +47,19 @@ app.get("/hello", (req, res) => {
  *               message:
  *                 type: string
  *                 example: "Hello from PUT!"
+ *             required:
+ *               - message
  *     responses:
  *       200:
  *         description: Updated greeting.
+ *       400:
+ *         description: Bad request - message is required.
  */
 app.put("/hello", (req, res) => {
   const { message } = req.body;
+  if (!message || typeof message !== 'string') {
+    return res.status(400).json({ error: "Message is required and must be a string" });
+  }
   res.json({ updated: message });
 });
 
