@@ -282,7 +282,13 @@ docker compose up --build --abort-on-container-exit
 
 ## 11) Expected Test Status
 
-Current suite has 7 tests and should pass when setup is correct.
+Current suite has 7 tests total.
+
+- 6 tests are expected to pass.
+- 1 test is intentionally failing as an example: `tests/api_test.py::test_put_missing_message`
+	- Purpose: demonstrates how a negative validation failure appears in pytest/Allure.
+	- Current behavior: API returns `200` for `PUT /hello` with an empty body (`{}`).
+	- Test expectation: should return `400` for missing `message`.
 
 ---
 
